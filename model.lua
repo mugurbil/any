@@ -126,8 +126,10 @@ print("Training")
 learning_rate = .001
 decay = 0.0000001
 batch_size = 10
-
+train_image_count = trsize
 epoch = 0
+net = model
+trained_model_path = 'model.data'
 
 while true do
       epoch = epoch + 1
