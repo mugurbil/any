@@ -36,8 +36,10 @@ for i = 1, numPatch do
   labels[i] = labelsFile
 end
 labels = labels:resize(trsize*numPatch)
-net = nn.Reshape(trsize*numPatch,1,40,40)
-resized = net:forward(loaded)
+net1 = nn.Reshape(trsize*numPatch,1,40,40)
+resized = net1:forward(loaded)
+net2 = nn.SpatialZeroPadding(2, 2, 2, 2)
+resized = resized:forward(resized)
 trainData = {
    data = resized,
    labels = labels,
@@ -48,7 +50,6 @@ print '==> construct model'
 model = nn.Sequential()
 
 -- stage 1 : zero padding -> filter bank -> squashing -> max pooling -> normalization
-model:add(nn.SpatialZeroPadding(2, 2, 2, 2))
 model:add(nn.SpatialConvolutionMM(1, 64, 5, 5, 2, 2))
 model:add(nn.ReLU())
 model:add(nn.SpatialMaxPooling(2,2,2,2))
