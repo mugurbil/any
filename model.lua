@@ -139,7 +139,7 @@ while true do
             xlua.progress(processed_count, train_image_count)
             batch_lower = processed_count + 1
             batch_upper = math.min(train_image_count, batch_lower + batch_size -1)
-            batch = training_data[{{batch_lower, batch_upper}, {}, {}}]
+            batch = trainData[{{batch_lower, batch_upper}, {}, {}}]
             batch_labels = labels[{{batch_lower, batch_upper}}]:double()
             criterion:forward(net:forward(batch), batch_labels)
             net:zeroGradParameters()
